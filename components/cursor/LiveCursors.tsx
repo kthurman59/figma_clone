@@ -1,9 +1,16 @@
-import React from 'react'
+import { LiveCursorProps } from '@/types/type'
+import Cursor from './Cursor';
 
-const LiveCursors = () => {
-  return (
-    <div>LiveCursors</div>
-  )
+const LiveCursors = ({ others }: LiveCursorProps) => {
+    others.map(({ connectionId, presence }) => {
+        if(!presence) return null;
+
+        return (
+            <Cursor
+                key={connectionId}
+            />
+        )
+    })
 }
 
 export default LiveCursors
