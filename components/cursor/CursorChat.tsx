@@ -6,7 +6,12 @@ import { CursorChatProps, CursorMode } from '@/types/type'
 
 const CursorChat = ({ cursor, cursorState, setCursorState, updateMyPresence }: CursorChatProps) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-
+    updateMyPresence({ message: e.target.value });
+    setCursorState({
+      mode: CursorMode.Chat,
+      previousMessage: null,
+      message: e.target.value,
+    })
   }
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -25,7 +30,11 @@ const CursorChat = ({ cursor, cursorState, setCursorState, updateMyPresence }: C
               )}
               <input
                 className='z-10 w-60 border-none bg-transparent text-white placeholder-blue-300 outline-none'
-                autoFocus={true} 
+                autoFocus={true}
+                onChange={handleChange}
+                onKeyDown={handleKeyDown}
+                placeholder={cursorState.previousMessage ? '': 'Type a message...'}
+                maxLength={50}
               />
             </div>
           </>
